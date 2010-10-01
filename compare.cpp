@@ -8,7 +8,7 @@ int main()
     point start1, start2, end1, end2;
     point pt1, pt2;
 
-    im1.read_TIFF("s20000.tif");
+    im1.read_TIFF((char *) "s20000.tif");
     im1.threshold(100);
     im1.get_white_regions();
     im1.get_black_regions();
@@ -17,15 +17,15 @@ int main()
     im1.clean_boundary();
     im1.get__contour(false);
     im1.get_skeleton();
-    im1.write_TIFF("skeleton1");
+    im1.write_TIFF((char *) "skeleton1");
 
-    im2.read_TIFF("s20000.tif");
+    im2.read_TIFF((char *) "s20000.tif");
     im2.threshold(100);
     im2.get_white_regions();
     im2.get_black_regions();
     im2.get_boundary_breadth_first();
     im2.get_skeleton();
-    im1.write_TIFF("skeleton2");
+    im1.write_TIFF((char *) "skeleton2");
 
     start1 = im1.get_start();
     start2 = im2.get_start();
@@ -37,7 +37,7 @@ int main()
         if ((*pt1 == 200) && (*pt2 == 200))
             *pt2 = 0;
 
-    im2.write_TIFF("real_skeleton");
+    im2.write_TIFF((char *) "real_skeleton");
 
     return 0;
 }
