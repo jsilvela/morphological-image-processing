@@ -16,6 +16,6 @@ int main (int argc, char **argv)
     while (std::cin >> buf && buf != "exit" && buf != "q" && buf != "quit") {
         eval(buf, im);
     }
-std::cout << endl;
+    std::cout << endl;
     return 0;
 }

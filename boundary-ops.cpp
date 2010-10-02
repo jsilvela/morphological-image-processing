@@ -136,8 +136,8 @@ void Image::get_skeleton()
     int i, num_neighbors;
     point pt, aux;
     if (boundary_queue.empty()) {
-std::cerr << "get_skeleton: given an empty boundary queue!!"
-        << endl;
+        std::cerr << "get_skeleton: given an empty boundary queue!!"
+                  << endl;
         return;
     }
     while ( !boundary_queue.empty()) {
@@ -167,8 +167,8 @@ void Image::distance_transform()
     grey distance = 1;
     int i, npix;
     if (boundary_queue.empty()) {
-std::cerr << "distance_transform: given an empty boundary queue!!"
-        << endl;
+        std::cerr << "distance_transform: given an empty boundary queue!!"
+                  << endl;
         return;
     }
     while (!boundary_queue.empty()) {
@@ -190,9 +190,9 @@ std::cerr << "distance_transform: given an empty boundary queue!!"
             pt = boundary_queue.front();
         }
         if (VERBOSE)
-std::cout << "distance_transform: " << npix
-    << " pixels removed in iteration "
-    << static_cast<int>(distance-bound) << endl;
+            std::cout << "distance_transform: " << npix
+                      << " pixels removed in iteration "
+                      << static_cast<int>(distance-bound) << endl;
         boundary_queue.pop();  // remove null pixel
     }
 }
@@ -203,13 +203,13 @@ void Image::brute_distance_transform()
     int i;
     for (i=0,pt=start; pt<=end; ++pt,++i) {
         if (i== width) {
-std::cout << "." << flush;
+            std::cout << "." << flush;
             i = 0;
         }
         if (*pt == white) {
-std::cout << endl;
+            std::cout << endl;
             *pt = distance_to_boundary(pt);
-std::cout << (int) *pt << endl;
+            std::cout << (int) *pt << endl;
         }
     }
 }	
@@ -252,43 +252,43 @@ void Image::euclid_transform()
 }
 
 /*
-void Image::skel_transform_bis()
-{
-    point pt, aux;
-    vect *vectmatrix;
-    vect *Vaux, *Vpt;
-    vect offsets[8] = {{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1},{0,-1},{1,-1}};
-    vectmatrix = new vect[size];
-    double d;
-    int i, npix;
-    for (i=0; i<size; ++i) {
-        if (start[i] == white) {
-            (vectmatrix[i]).x = 1000; // so that distance vector is unrealistically big
-            (vectmatrix[i]).y = 0;
-        } else {
-            (vectmatrix[i]).x = 0;
-            (vectmatrix[i]).y = 0;
-        }
-    }
-    while (!boundary_queue.empty()) {
-        pt = boundary_queue.front();
-        Vpt = vectmatrix + (pt - start);
-        for (i=0; i<8; ++i) {
-            aux= pt + offset_8neighbor[i];
-            Vaux = Vpt + offset_8neighbor[i];
-            if (in_range(aux))
-                if (norm(*Vaux) > (d = norm(sum(*Vpt,offsets[i])))) {
-                    *Vaux = sum(*Vpt,offsets[i]);
-                    boundary_queue.push(aux);
-                    *aux = floor(d);
-                } else if (cos_angle(*Vaux, *Vpt) < 0.8 &&
-                           norm(dif(*Vaux,*Vpt)) > 20.0) {
-                    *aux = 111;
-                }
-        }
-        boundary_queue.pop();
-    }
-}
+  void Image::skel_transform_bis()
+  {
+  point pt, aux;
+  vect *vectmatrix;
+  vect *Vaux, *Vpt;
+  vect offsets[8] = {{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1},{0,-1},{1,-1}};
+  vectmatrix = new vect[size];
+  double d;
+  int i, npix;
+  for (i=0; i<size; ++i) {
+  if (start[i] == white) {
+  (vectmatrix[i]).x = 1000; // so that distance vector is unrealistically big
+  (vectmatrix[i]).y = 0;
+  } else {
+  (vectmatrix[i]).x = 0;
+  (vectmatrix[i]).y = 0;
+  }
+  }
+  while (!boundary_queue.empty()) {
+  pt = boundary_queue.front();
+  Vpt = vectmatrix + (pt - start);
+  for (i=0; i<8; ++i) {
+  aux= pt + offset_8neighbor[i];
+  Vaux = Vpt + offset_8neighbor[i];
+  if (in_range(aux))
+  if (norm(*Vaux) > (d = norm(sum(*Vpt,offsets[i])))) {
+  *Vaux = sum(*Vpt,offsets[i]);
+  boundary_queue.push(aux);
+  *aux = floor(d);
+  } else if (cos_angle(*Vaux, *Vpt) < 0.8 &&
+  norm(dif(*Vaux,*Vpt)) > 20.0) {
+  *aux = 111;
+  }
+  }
+  boundary_queue.pop();
+  }
+  }
 */
 
 void Image::skel_transform()
@@ -319,22 +319,22 @@ void Image::skel_transform()
                 if (norm(*Vaux) > (d = norm(sum(*Vpt,offsets[i])))) {
                     *Vaux = sum(*Vpt,offsets[i]);
                     boundary_queue.push(aux);
-    //                *aux = floor(d);
+                    //                *aux = floor(d);
                 }
         }
         boundary_queue.pop();
     }
-        for (pt = start; pt < end; ++pt)
-            if (*pt == white) {
-                Vpt = vectmatrix + (pt - start);
-                for (i = 0; i<8; ++i) {
-                    Vaux = Vpt + offset_8neighbor[i];
-                    if (in_range(aux = pt + offset_8neighbor[i]) &&
-                        cos_angle(*Vpt,*Vaux) < 0.8 &&
-                        norm(dif(*Vpt,*Vaux)) > 20.0)
-                        *aux = 111;
-                }
+    for (pt = start; pt < end; ++pt)
+        if (*pt == white) {
+            Vpt = vectmatrix + (pt - start);
+            for (i = 0; i<8; ++i) {
+                Vaux = Vpt + offset_8neighbor[i];
+                if (in_range(aux = pt + offset_8neighbor[i]) &&
+                    cos_angle(*Vpt,*Vaux) < 0.8 &&
+                    norm(dif(*Vpt,*Vaux)) > 20.0)
+                    *aux = 111;
             }
+        }
 }
 
 
@@ -346,15 +346,15 @@ void Image::euclid2_transform()
     vect offsets[8] = {{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1},{0,-1},{1,-1}};
     vectmatrix = new vect[size];
     int i, npix;
-std::memset(vectmatrix, 0, 2*size);
+    std::memset(vectmatrix, 0, 2*size);
     /*    for (i=0; i<size; ++i) {
-        (vectmatrix[i]).x = 0;
-    (vectmatrix[i]).y = 0;
-    }
-*/
+          (vectmatrix[i]).x = 0;
+          (vectmatrix[i]).y = 0;
+          }
+    */
     if (boundary_queue.empty()) {
-std::cerr << "distance_transform: given an empty boundary queue!!"
-        << endl;
+        std::cerr << "distance_transform: given an empty boundary queue!!"
+                  << endl;
         return;
     }
     while (!boundary_queue.empty()) {
@@ -385,8 +385,8 @@ std::cerr << "distance_transform: given an empty boundary queue!!"
             ++ npix;
             pt = boundary_queue.front();
         }	
-            boundary_queue.pop();  // remove null pixel
-            color_queue(boundary_queue, bound);
+        boundary_queue.pop();  // remove null pixel
+        color_queue(boundary_queue, bound);
     }
 }
 
@@ -395,8 +395,8 @@ void Image::erode(int n)
     point pt, aux;
     int i;
     if (boundary_queue.empty()) {
-std::cerr << "erode: given an empty boundary queue!!"
-        << endl;
+        std::cerr << "erode: given an empty boundary queue!!"
+                  << endl;
         return;
     }
     for ( ; n>0; --n) {
@@ -425,8 +425,8 @@ void Image::dilate(int n)
     int i;
     point pt, aux;
     if (boundary_queue.empty()) {
-std::cerr << "dilate: given an empty boundary queue!!"
-        << endl;
+        std::cerr << "dilate: given an empty boundary queue!!"
+                  << endl;
         return;
     }
     for ( ; n>0; --n) {
@@ -525,7 +525,7 @@ int Image::get_num_4neighbors(point pt, grey level)
 // displays boundary points in queue (deletes other points)
 void Image::display_points()
 {
-std::memset(start, black, size*sizeof(grey));
+    std::memset(start, black, size*sizeof(grey));
     color_queue(boundary_queue, white);
 }
 
@@ -537,7 +537,7 @@ void Image::print_point(point pt)
     dif = pt-start;
     row = dif / width;
     col = dif % width;
-std::cout << "row = " << row << "; col = " << col << " ";
+    std::cout << "row = " << row << "; col = " << col << " ";
 }
 
 
@@ -952,7 +952,7 @@ bool Image::is_ordered()
             last = pt;
             boundary_queue.pop();
         } else {
-std::cout << "is_ordered: Offending points colored";
+            std::cout << "is_ordered: Offending points colored";
             print_point(last);
             print_point(pt);
             *last = *pt = skel;

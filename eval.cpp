@@ -12,15 +12,15 @@ void eval(string expr, Image & im)
     start_ = clock();
     if (expr == "write") {
         char name[40];
-std::cin >> name;
+        std::cin >> name;
         im.write_TIFF(name);
     } else if (expr == "read") {
         char name[40];
-std::cin >> name;
+        std::cin >> name;
         im.read_TIFF(name);
     } else if (expr == "threshold") {
         int level;
-std::cin >>  level;
+        std::cin >>  level;
         im.threshold(level);
     } else if (expr == "regions") {
         im.get_white_regions();
@@ -49,7 +49,7 @@ std::cin >>  level;
         VERBOSE = false;
     } else if (expr == "rectangle") {
         int h, w;
-std::cin >> h >> w;
+        std::cin >> h >> w;
         im.rectangle(h, w);
     } else if (expr == "boundary") {
         im.get_boundary();
@@ -63,11 +63,11 @@ std::cin >> h >> w;
         im.get_contour(true);
     } else if (expr == "erode") {
         int n;
-std::cin >> n;
+        std::cin >> n;
         im.erode(n);
     } else if (expr == "dilate") {
         int n;
-std::cin >> n;
+        std::cin >> n;
         im.dilate(n);
     } else if (expr == "clean") {
         im.clean_boundary();
@@ -75,32 +75,32 @@ std::cin >> n;
         im.display_points();
     } else if (expr == "verify-queue") {
         if ( im.is_unique() )
-std::cout << "Correct boundary queue!!" << endl;
+            std::cout << "Correct boundary queue!!" << endl;
         else
-std::cout << "Incorrect boundary queue!!" << endl;
+            std::cout << "Incorrect boundary queue!!" << endl;
     } else if (expr == "queue-ordered?") {
         if ( im.is_ordered() )
-std::cout << "Ordered boundary queue!!" << endl;
+            std::cout << "Ordered boundary queue!!" << endl;
         else
-std::cout << "Unordered boundary queue!!" << endl;
+            std::cout << "Unordered boundary queue!!" << endl;
     }  else if (expr == "curvature") {
         im.get_curvature();
     } else if (expr == "statistic") {
         im.get_statistics();
     } else if (expr == "results") {
-std::cout << _filename << " ";
+        std::cout << _filename << " ";
         for (int i=0; i<NUM_FEATURES; ++i)
-std::cout << feature_vector[i] << " ";
+            std::cout << feature_vector[i] << " ";
         //                std::cout << endl;
     } else {
-std::cerr << "Invalid input: " << expr << endl;
+        std::cerr << "Invalid input: " << expr << endl;
         return;
     }
 
     finish_ = clock();
     if (VERBOSE) std::cerr << "done. Evaluation took "
-        << (static_cast<double> (finish_-start_)) / CLOCKS_PER_SEC
-        << " seconds\n" << endl;
+                           << (static_cast<double> (finish_-start_)) / CLOCKS_PER_SEC
+                           << " seconds\n" << endl;
 }
 
 
@@ -110,18 +110,17 @@ void parse_command_line(int argc, char *argv[], Image & im)
     while (--argc > 0 && (*++argv)[0] == '-')
         while ( (c = *++argv[0]) != '\0')
             switch (c) {
-                case 'd':
-                    BREADTH_FIRST = false;
-                    break;
-                case 'v':
-                    VERBOSE = true;
-                    break;
-                default:
-                    std::cout << "illegal option" << endl;
-                    exit (0);
-                    break;
+            case 'd':
+                BREADTH_FIRST = false;
+                break;
+            case 'v':
+                VERBOSE = true;
+                break;
+            default:
+                std::cout << "illegal option" << endl;
+                exit (0);
+                break;
             }
-                if (argc == 1)
-                    im.read_TIFF(argv[0]);
+    if (argc == 1)
+        im.read_TIFF(argv[0]);
 }
-

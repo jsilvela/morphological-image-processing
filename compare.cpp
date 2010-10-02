@@ -33,7 +33,9 @@ int main()
     end2 = im2.get_end();
 
 
-    for (pt1 = start1, pt2 = start2; pt1<=end1 && pt2 <=end2; ++pt1, ++pt2)
+    for (pt1 = start1, pt2 = start2;
+         pt1<=end1 && pt2 <=end2;
+         ++pt1, ++pt2)
         if ((*pt1 == 200) && (*pt2 == 200))
             *pt2 = 0;
 

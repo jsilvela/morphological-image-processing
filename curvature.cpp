@@ -127,7 +127,7 @@ void print_vector(vector<float> V)
     int i, size = V.size();
 
     for (i=0; i<size; ++i)
-std::cout << V[i] << endl;
+        std::cout << V[i] << endl;
 }
 
 void print_vector(vector<cmplx> V)
@@ -135,7 +135,7 @@ void print_vector(vector<cmplx> V)
     int i, size = V.size();
 
     for (i=0; i<size; ++i)
-std::cout << real(V[i]) << " " << imag(V[i]) << endl;
+        std::cout << real(V[i]) << " " << imag(V[i]) << endl;
 }
 
 void print_letters(vector<char> letters)
@@ -143,8 +143,8 @@ void print_letters(vector<char> letters)
     int i, size = letters.size();
 
     for (i=0; i<size; ++i)
-std::cout << letters[i];
-std::cout << endl;
+        std::cout << letters[i];
+    std::cout << endl;
 }
 
 void dilate_tips(vector<char> & letters)
@@ -173,10 +173,10 @@ int numfingers(vector<char> letters)
             is_curved = false;
             ++crossings;
         }
-            else if (letters[i] == 'c' && !is_curved) {
-                is_curved = true;
-            }
-            return crossings;
+        else if (letters[i] == 'c' && !is_curved) {
+            is_curved = true;
+        }
+    return crossings;
 }
 
 void update_variables(float elem, float thresh, bool decrement, int & npos, int & nneg, int & nz, float & sum)
@@ -253,7 +253,7 @@ void print_fingers(vector<float> V)
             point_type = 'n';
         }
         if (VERBOSE) {
-std::cout << point_type;
+            std::cout << point_type;
         }
         letters.push_back(point_type);
         update_variables(V[i], thresh, decrement, npos, nneg, nz, sum);
@@ -300,7 +300,7 @@ double get_abs_sum(vector<float> vel)
 void Image::get_curvature()
 {
     if (boundary_queue.empty()) {
-std::cerr << "curvature: given no curve" << endl;
+        std::cerr << "curvature: given no curve" << endl;
         return;
     }
     vector<cmplx> c;
@@ -321,7 +321,3 @@ std::cerr << "curvature: given no curve" << endl;
     feature_vector[curvosity] = get_abs_sum(Args) / Args.size();
     print_fingers(Args);
 }
-
-
-
-

@@ -67,6 +67,3 @@ void Image::get_statistics()
         feature_vector[rel_aspecto] = mom_1 / mom_2;
     }
 }
-
-
-
